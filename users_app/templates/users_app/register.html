@@ -6,7 +6,6 @@
     <title>User Registration - Professional</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Variables for consistency */
         :root {
             --primary-color: #007bff;
             --background-light: #f4f7f6;
@@ -14,7 +13,6 @@
             --border-color: #ced4da;
             --shadow-subtle: 0 4px 10px rgba(0, 0, 0, 0.05);
             --rule-color: #6c757d;
-            --success-color: #28a745;
         }
 
         body {
@@ -27,7 +25,6 @@
             margin: 0;
         }
 
-        /* Registration Card Container */
         .register-card {
             background: #ffffff;
             padding: 40px;
@@ -38,7 +35,6 @@
             text-align: center;
         }
 
-        /* Header */
         h2 {
             color: var(--primary-color);
             font-weight: 700;
@@ -46,7 +42,6 @@
             font-size: 1.8em;
         }
 
-        /* Form Group Styling */
         .form-group {
             text-align: left;
             margin-bottom: 25px;
@@ -77,14 +72,12 @@
             outline: none;
         }
 
-        /* Help Text / Rules Styling */
         .help-text {
             margin-top: 8px;
             font-size: 0.85em;
             color: var(--rule-color);
         }
 
-        /* Specific Password Rule List */
         .password-rules {
             list-style: none;
             padding: 0;
@@ -94,14 +87,13 @@
         .password-rules li {
             margin-bottom: 5px;
             line-height: 1.4;
-            /* Use a checkmark/bullet replacement for better visual flow */
             position: relative;
             padding-left: 20px;
-            color: var(--rule-color); /* Default rule color */
+            color: var(--rule-color);
         }
 
         .password-rules li::before {
-            content: '•'; /* Simple bullet point */
+            content: '•';
             color: var(--rule-color);
             font-weight: bold;
             display: inline-block;
@@ -110,14 +102,7 @@
             position: absolute;
             left: 0;
         }
-        
-        /* Highlight for the complex rule text */
-        .password-rules strong {
-            font-weight: 500;
-            color: var(--text-color);
-        }
 
-        /* Button Styling (Consistent with Login) */
         button[type="submit"] {
             width: 100%;
             padding: 12px;
@@ -137,7 +122,6 @@
             transform: translateY(-1px);
         }
 
-        /* Footer Link (Consistent with Login) */
         .login-link {
             margin-top: 25px;
             font-size: 0.9em;
@@ -153,11 +137,47 @@
         .login-link a:hover {
             text-decoration: underline;
         }
+
+        /* Messages Styling */
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .message.error {
+            color: #842029;
+            background-color: #f8d7da;
+            border: 1px solid #f5c2c7;
+        }
+
+        .message.success {
+            color: #0f5132;
+            background-color: #d1e7dd;
+            border: 1px solid #badbcc;
+        }
+
+        /* Field-specific errors */
+        .errorlist {
+            color: red;
+            margin: 5px 0 10px 0;
+            font-size: 0.9em;
+            list-style: none;
+            padding: 0;
+        }
     </style>
 </head>
 <body>
     <div class="register-card">
         <h2>Create an Account</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
 
         <form method="post">
             {% csrf_token %}
@@ -165,15 +185,26 @@
             <div class="form-group">
                 <label for="id_username">Username</label>
                 <input type="text" name="username" id="id_username" required maxlength="150">
-                <p class="help-text">
-                    Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
-                </p>
+                {% if form.username.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.username.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-text">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
             </div>
 
             <div class="form-group">
                 <label for="id_password1">Password</label>
-                <input type="password" name="password" id="id_password1" required>
-                
+                <input type="password" name="password1" id="id_password1" required>
+                {% if form.password1.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.password1.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 <ul class="password-rules">
                     <li>Your password can’t be too similar to your other personal information.</li>
                     <li>Your password must contain at least 8 characters.</li>
@@ -184,7 +215,14 @@
 
             <div class="form-group">
                 <label for="id_password2">Password confirmation</label>
-                <input type="password" name="password_confirmation" id="id_password2" required>
+                <input type="password" name="password2" id="id_password2" required>
+                {% if form.password2.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.password2.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 <p class="help-text">Enter the same password as before, for verification.</p>
             </div>
             

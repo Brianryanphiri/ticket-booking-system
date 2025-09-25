@@ -6,7 +6,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings
 SECRET_KEY = "django-insecure-wqp^az@po9qxt^z3pdb2j=(xxn81v1na-c=78p2+!@way)a(sw"
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
+# CSRF trusted origins to fix 403 errors
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "https://localhost:8000",
+    "https://127.0.0.1:8000",
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -39,7 +47,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],  # ✅ Global templates folder
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -75,13 +83,18 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-STATIC_URL = "static/"
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # ✅ Project-level static folder
+]
+
+# Media files (uploads)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom user model
-# Use this in ForeignKey/M2M references in other apps to avoid circular imports:
-# Example: user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-AUTH_USER_MODEL = "users_app.User"
+AUTH_USER_MODEL = "users_app.User"  # ✅ Make sure this matches your User model

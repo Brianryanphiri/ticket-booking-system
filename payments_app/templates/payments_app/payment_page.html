@@ -1,0 +1,11 @@
+<h1>Make Payment</h1>
+{% for ticket in tickets %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+        <p>Event: {{ ticket.event.name }} | Price: ${{ ticket.event.price }}</p>
+        <button type="submit">Pay Now</button>
+    </form>
+{% empty %}
+    <p>No tickets available for payment.</p>
+{% endfor %}

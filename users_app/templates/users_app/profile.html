@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<style>
+    /* Variables for a soft, premium look */
+    :root {
+        --primary-color: #5B4E9A; /* Deep Purple */
+        --accent-color: #2ED069;  /* Bright Green for contrast */
+        --background-light: #eceff1;
+        --card-bg: #ffffff;
+        --text-color: #343a40;
+    }
+
+    /* General Styling (Assume base.html sets background) */
+    .page-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    /* Card Styling */
+    .profile-card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        max-width: 650px !important; /* Wider card for two columns */
+        text-align: left !important;
+        padding: 40px !important;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-3px); /* Gentle lift */
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Avatar Styling */
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        /* New, softer gradient */
+        background: linear-gradient(45deg, var(--primary-color), #7d70c4); 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 2.2rem;
+        box-shadow: 0 0 0 4px #ffffff, 0 0 0 6px var(--primary-color); /* Double ring border */
+        margin-right: 20px; /* Space for the right-side text */
+        flex-shrink: 0;
+    }
+
+    /* Header text next to avatar */
+    .profile-header h4 {
+        margin: 0;
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
+
+    .profile-header p {
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+    /* Data Display Grid */
+    .profile-data-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+        gap: 20px 40px; /* Vertical and horizontal gap */
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .profile-data-grid p {
+        margin-bottom: 0;
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    .profile-data-grid p strong {
+        display: block; /* Label on its own line */
+        font-weight: 500;
+        color: #6c757d; /* Gray label */
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+    }
+    
+    .profile-data-grid .data-value {
+        color: var(--text-color);
+        font-weight: 400;
+    }
+
+    /* Button Styling */
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        padding: 10px 25px;
+        font-weight: 500;
+        transition: background-color 0.3s;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .profile-data-grid {
+            grid-template-columns: 1fr; /* Stack on smaller screens */
+            gap: 15px;
+        }
+        .profile-card {
+            padding: 30px !important;
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="page-title">User Profile</h2>
+
+    <div class="card profile-card mx-auto shadow-sm">
+        
+        <div class="d-flex align-items-center profile-header mb-4">
+            <div class="avatar">
+                {{ user.first_name|default:''|first }}{{ user.last_name|default:''|first }}
+            </div>
+            <div>
+                <h4>Welcome, {{ user.username }}!</h4>
+                <p>Manage your account details below.</p>
+            </div>
+        </div>
+
+        <div class="profile-data-grid">
+            <p>
+                <strong>Username</strong>
+                <span class="data-value">{{ user.username }}</span>
+            </p>
+            <p>
+                <strong>Email Address</strong>
+                <span class="data-value">{{ user.email }}</span>
+            </p>
+            <p>
+                <strong>First Name</strong>
+                <span class="data-value">{{ user.first_name|default:"N/A" }}</span>
+            </p>
+            <p>
+                <strong>Last Name</strong>
+                <span class="data-value">{{ user.last_name|default:"N/A" }}</span>
+            </p>
+            {# Add more fields here, e.g., Date Joined, Phone #}
+        </div>
+
+        <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+            {# <a href="{% url 'edit_profile' %}" class="btn btn-secondary me-2">Edit Profile</a> #}
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
