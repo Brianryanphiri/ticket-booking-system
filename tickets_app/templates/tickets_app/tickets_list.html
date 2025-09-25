@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>All Tickets</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Event</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.id }}</td>
+                <td>{{ ticket.event.name }}</td>
+                <td>{{ ticket.user.username }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.price }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No tickets found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

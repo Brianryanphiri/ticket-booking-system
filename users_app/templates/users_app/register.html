@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration - Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables for consistency */
+        :root {
+            --primary-color: #007bff;
+            --background-light: #f4f7f6;
+            --text-color: #333;
+            --border-color: #ced4da;
+            --shadow-subtle: 0 4px 10px rgba(0, 0, 0, 0.05);
+            --rule-color: #6c757d;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Registration Card Container */
+        .register-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-subtle);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* Header */
+        h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        /* Form Group Styling */
+        .form-group {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1em;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        /* Help Text / Rules Styling */
+        .help-text {
+            margin-top: 8px;
+            font-size: 0.85em;
+            color: var(--rule-color);
+        }
+
+        /* Specific Password Rule List */
+        .password-rules {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .password-rules li {
+            margin-bottom: 5px;
+            line-height: 1.4;
+            /* Use a checkmark/bullet replacement for better visual flow */
+            position: relative;
+            padding-left: 20px;
+            color: var(--rule-color); /* Default rule color */
+        }
+
+        .password-rules li::before {
+            content: '•'; /* Simple bullet point */
+            color: var(--rule-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Highlight for the complex rule text */
+        .password-rules strong {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        /* Button Styling (Consistent with Login) */
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-top: 25px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        /* Footer Link (Consistent with Login) */
+        .login-link {
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-card">
+        <h2>Create an Account</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" id="id_username" required maxlength="150">
+                <p class="help-text">
+                    Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">Password</label>
+                <input type="password" name="password" id="id_password1" required>
+                
+                <ul class="password-rules">
+                    <li>Your password can’t be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters.</li>
+                    <li>Your password can’t be a commonly used password.</li>
+                    <li>Your password can’t be entirely numeric.</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">Password confirmation</label>
+                <input type="password" name="password_confirmation" id="id_password2" required>
+                <p class="help-text">Enter the same password as before, for verification.</p>
+            </div>
+            
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
+</body>
+</html>
