@@ -1,4 +1,3 @@
-````markdown
 # 🎟️ Ticket Booking System
 
 A **Django-based Event Ticket Booking System** where users can browse events, book tickets, make payments, and manage their accounts.  
