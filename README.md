@@ -48,7 +48,7 @@ The project is structured into modular apps for **events, tickets, users, and pa
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the Repository
-git clone https://github.com/your-username/ticket-booking-system.git
+https://github.com/Brianryanphiri/ticket-booking-system.git
 cd ticket-booking-system
 2️⃣ Create Virtual Environment
 bash
