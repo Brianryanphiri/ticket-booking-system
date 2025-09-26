@@ -45,12 +45,9 @@ The project is structured into modular apps for **events, tickets, users, and pa
 - **Deployment:** Compatible with Gunicorn, Nginx, Docker  
 
 ---
-```
-
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the Repository
-```bash
 git clone https://github.com/your-username/ticket-booking-system.git
 cd ticket-booking-system
 2️⃣ Create Virtual Environment
