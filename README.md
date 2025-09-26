@@ -27,9 +27,7 @@ The project is structured into modular apps for **events, tickets, users, and pa
 - Payment model includes:
   - `user`, `ticket`, `amount`, `status`, `payment_date`
 - Supports integration with:
-  - Stripe  
-  - PayPal  
-  - Razorpay  
+  - Stripe    
 - Includes initiation, confirmation, and success/failure pages  
 
 ### 🔑 Admin Dashboard
