@@ -47,32 +47,32 @@ The project is structured into modular apps for **events, tickets, users, and pa
 - **Deployment:** Compatible with Gunicorn, Nginx, Docker  
 
 ---
-
+```markdown
 ## 📂 Project Structure
 
+```
+
 ticket-booking-system/
-├── config/ # Project configuration
-│ ├── settings.py
-│ ├── urls.py
-│ └── wsgi.py
+├── config/                # Project configuration
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
 │
-├── events_app/ # Events management
-├── tickets_app/ # Ticket booking and availability
-├── users_app/ # Custom user model, auth, profiles
-├── payments_app/ # Payment processing
+├── events_app/            # Events management
+├── tickets_app/           # Ticket booking and availability
+├── users_app/             # Custom user model, auth, profiles
+├── payments_app/          # Payment processing
 │
-├── templates/ # Global templates (base.html, etc.)
-│ └── registration/ # Auth templates (login.html, register.html)
+├── templates/             # Global templates (base.html, etc.)
+│   └── registration/      # Auth templates (login.html, register.html)
 │
-├── static/ # Static files (CSS, JS, images)
-├── db.sqlite3 # Local database (development)
+├── static/                # Static files (CSS, JS, images)
+├── db.sqlite3             # Local database (development)
 ├── manage.py
 └── README.md
 
-yaml
-Copy code
-
----
+```
+```
 
 ## ⚙️ Installation & Setup
 
@@ -162,12 +162,3 @@ You are free to use, modify, and distribute this project.
 📌 Currently under active development.
 Core apps (users, events, tickets, payments) are in place.
 Next phase → Payment gateway integration & UI improvements.
-
-
-
-
-
-
-
-
-Ask ChatGPT
