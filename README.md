@@ -82,7 +82,7 @@ Visit 👉 http://127.0.0.1:8000/
 By default, payments are mock/test only.
 To integrate with real payment gateways:
 
-Create a developer account on Stripe, PayPal, or Razorpay.
+Create a developer account on Stripe
 
 Get your API keys.
 
