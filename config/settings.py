@@ -1,20 +1,17 @@
+import os
 from pathlib import Path
+import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings
-SECRET_KEY = "django-insecure-wqp^az@po9qxt^z3pdb2j=(xxn81v1na-c=78p2+!@way)a(sw"
-DEBUG = True
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+# SECURITY
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
+DEBUG = False
+ALLOWED_HOSTS = ["ticket-booking-system.onrender.com"]
 
-# CSRF trusted origins to fix 403 errors
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "https://localhost:8000",
-    "https://127.0.0.1:8000",
-]
+# CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = ["https://ticket-booking-system.onrender.com"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -25,7 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Custom apps
+    # Your custom apps
     "events_app",
     "tickets_app",
     "users_app",
@@ -47,7 +44,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],  # ✅ Global templates folder
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -59,14 +56,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi.application"
+WSGI_APPLICATION = "ticket_booking_system.wsgi.application"
 
-# Database
+# Database (PostgreSQL on Render)
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+    )
 }
 
 # Password validation
@@ -83,13 +79,12 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # ✅ Project-level static folder
-]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-# Media files (uploads)
+# Media files
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -97,4 +92,4 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom user model
-AUTH_USER_MODEL = "users_app.User"  # ✅ Make sure this matches your User model
+AUTH_USER_MODEL = "users_app.User"
